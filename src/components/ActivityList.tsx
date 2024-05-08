@@ -1,15 +1,13 @@
 import { Activity } from '../types';
 import { categories } from '../data/data';
-import { useMemo, Dispatch } from 'react';
+import { useMemo } from 'react';
 import { PencilSquareIcon, XCircleIcon } from '@heroicons/react/24/outline';
-import { ActivityActions } from '../reducers/activity-reducer';
+import { useActivity } from '../hooks/useActivity';
 
-type ListActivity = {
-  activities: Activity[];
-  dispatch: Dispatch<ActivityActions>;
-};
+export const ActivityList = () => {
+  const { state, dispatch } = useActivity();
+  const { activities } = state;
 
-export const ActivityList = ({ activities, dispatch }: ListActivity) => {
   const categoryName = useMemo(
     () => (category: Activity['category']) =>
       categories.map((cat) => (cat.id === category ? cat.name : '')),
